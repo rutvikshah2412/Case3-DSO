@@ -43,7 +43,7 @@ pipeline {
             steps {
                withDockerRegistry(credentialsId: 'DockerCred', url: 'https://registry.hub.docker.com') {
                    sh 'docker build -t rutvikshah2412/case3-dso:${BUILD_NUMBER} .'
-                   sh 'sudo docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
+                   sh 'docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
                }
             }
         }
