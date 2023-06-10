@@ -43,8 +43,6 @@ pipeline {
         stage('Docker Build and Push') {
             steps {
                     sh 'docker build -t rutvikshah2412/case3-dso:${BUILD_NUMBER} .'
-//                     sh 'docker build -t penclinic .'
-//                     sh 'docker tag petclinic rutvikshah2412/case3-dso:${BUILD_NUMBER}'
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     sh 'docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
                 
@@ -56,7 +54,7 @@ pipeline {
         }
          stage('Trivy') {
             steps {
-               sh "trivy image rutvikshah2412/case3:32"
+               sh "trivy image rutvikshah2412/case3:${BUILD_NUMBER}"
             }
          }
     }
