@@ -62,5 +62,10 @@ pipeline {
                sh ' cp /var/lib/jenkins/workspace/case3-devsecops/target/petclinic.war /home/rutvik/apache-tomcat/webapps/petclinic.war'
             }
          }
+        stage('DAST') {
+            steps {
+               sh 'docker run -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:8081/webapp'
+            }
+         }
     }
 }
