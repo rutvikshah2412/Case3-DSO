@@ -54,11 +54,10 @@ pipeline {
 //                }
             }
         }
-            stage('Trivy') {
+         stage('Trivy') {
             steps {
                sh "trivy image rutvikshah2412/case3:32"
             }
-        }
-        }
+         }
     }
 }
