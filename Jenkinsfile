@@ -34,9 +34,18 @@ pipeline {
               }
             }
         }
+        
         stage('Build') {
             steps {
                sh "mvn clean package -DskipTests=true"
+            }
+        }
+        stage('Build') {
+            steps {
+               withDockerRegistry(credentialsId: 'DockerCred') {
+                    sh 'docker build -t rutvikshah2412/case3-dso:latest .'
+                    sh 'docker push rutvikshah2412/case3-dso:latest'
+               }
             }
         }
     }
