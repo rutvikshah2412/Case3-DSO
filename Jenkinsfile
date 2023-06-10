@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Docker Build and Push') {
             steps {
-               withDockerRegistry(credentialsId: 'DockerCred', url: 'https://hub.docker.com/repository/docker/rutvikshah2412/case3-dso') {
+               withDockerRegistry(credentialsId: 'DockerCred', url: 'https://hub.docker.com/repository/docker') {
                     sh 'docker build -t rutvikshah2412/case3-dso:latest .'
                     sh 'docker push rutvikshah2412/case3-dso:latest'
                }
