@@ -59,7 +59,7 @@ pipeline {
          }
         stage('Deploy to Tomcat') {
             steps {
-               sh ' cp /var/lib/jenkins/workspace/case3-devsecops/target/petclinic.war /var/lib/tomcat9/webapps/ '
+               sh ' cp /var/lib/jenkins/workspace/case3-devsecops/target/petclinic.war /home/rutvik/apache-tomcat/webapps/petclinic.war'
             }
          }
     }
