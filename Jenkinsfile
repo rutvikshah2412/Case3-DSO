@@ -57,5 +57,10 @@ pipeline {
                sh "trivy image rutvikshah2412/case3-dso:${BUILD_NUMBER}"
             }
          }
+        stage('Deploy to Tomcat') {
+            steps {
+               sh "cp /var/lib/jenkins/workspace/case3-devsecops/target/petclinic.war /var/lib/tomcat9/webapps/"
+            }
+         }
     }
 }
