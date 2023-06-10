@@ -46,6 +46,7 @@ pipeline {
                     sh 'docker build -t rutvikshah2412/case3-dso:latest .'
                     sh 'docker push rutvikshah2412/case3-dso:latest'
                }
+               }
             }
         }
     }
