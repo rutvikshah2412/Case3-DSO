@@ -26,10 +26,12 @@ pipeline {
         }
         stage('SAST') {
             steps {
-               withSonarQubeEnv("sonarqubeServer")
+              withSonarQubeEnv("sonarqubeServer"){
                 sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Case3-DSO \
                 -Dsonar.java.binaries=. \
                 -Dsonar.projectKey=Case3-DSO '''
+              }
+//                 withSonarQubeEnv("sonarqubeServer")
             }
         }
         stage('Build') {
