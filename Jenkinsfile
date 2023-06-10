@@ -40,9 +40,9 @@ pipeline {
                sh "mvn clean package -DskipTests=true"
             }
         }
-        stage('Build') {
+        stage('Docker Build and Push') {
             steps {
-               withDockerRegistry(credentialsId: 'DockerCred') {
+               withDockerRegistry(credentialsId: 'DockerCred', url: 'https://hub.docker.com/repository/docker/rutvikshah2412/case3-dso') {
                     sh 'docker build -t rutvikshah2412/case3-dso:latest .'
                     sh 'docker push rutvikshah2412/case3-dso:latest'
                }
