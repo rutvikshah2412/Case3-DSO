@@ -21,7 +21,7 @@ pipeline {
         stage('OWASP Check') {
             steps {
                     dependencyCheck additionalArguments: '', odcInstallation: 'DP-check'
-                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: './dependency-check-report.xml'
             }
         }
         stage('SAST') {
@@ -31,7 +31,6 @@ pipeline {
                 -Dsonar.java.binaries=. \
                 -Dsonar.projectKey=Case3-DSO '''
               }
-//                 withSonarQubeEnv("sonarqubeServer")
             }
         }
         stage('Build') {
