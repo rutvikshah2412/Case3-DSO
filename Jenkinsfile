@@ -20,8 +20,9 @@ pipeline {
         }
         stage('OWASP Check') {
             steps {
+                    sh 'rm dependency-check-report.xml'
                     dependencyCheck additionalArguments: '', odcInstallation: 'DP-check'
-                    dependencyCheckPublisher pattern: './dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
         stage('SAST') {
