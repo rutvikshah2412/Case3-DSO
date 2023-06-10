@@ -6,6 +6,7 @@ pipeline {
     }
     environment{
         SCANNER_HOME = tool "sonar-scanner"
+        DOCKERHUB_CREDENTIALS=credentials('DockerCred')
     }
     stages {
         stage('Git Checkout') {
@@ -41,11 +42,20 @@ pipeline {
         }
         stage('Docker Build and Push') {
             steps {
-               withDockerRegistry(credentialsId: 'DockerCred', url: 'https://registry.hub.docker.com') {
-                   sh 'docker build -t rutvikshah2412/case3-dso:${BUILD_NUMBER} .'
-                   sh 'docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
-               }
+                    sh 'docker build -t rutvikshah2412/case3-dso:${BUILD_NUMBER} .'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
+                
+//                withDockerRegistry(credentialsId: 'DockerCred', url: 'https://registry.hub.docker.com') {
+//                    sh 'docker build -t rutvikshah2412/case3-dso:${BUILD_NUMBER} .'
+//                    sh 'docker push rutvikshah2412/case3-dso:${BUILD_NUMBER}'
+//                }
             }
         }
     }
 }
+post {
+		always {
+			sh 'docker logout'
+		}
+	}
