@@ -4,6 +4,9 @@ pipeline {
         jdk 'jdk11'
         maven 'case2-maven'
     }
+    environment{
+        SCANNER_HOME = tool "sonar-scanner"
+    }
     stages {
         stage('Git Checkout') {
             steps {
@@ -13,6 +16,20 @@ pipeline {
         stage('Compile') {
             steps {
                sh "mvn clean compile"
+            }
+        }
+        stage('OWASP Check') {
+            steps {
+                    dependencyCheck additionalArguments: '', odcInstallation: 'DP-check'
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage('SAST') {
+            steps {
+               withSonarQubeEnv("sonarqubeServer")
+                sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Case3-DSO \
+                -Dsonar.java.binaries=. \
+                -Dsonar.projectKey=Case3-DSO '''
             }
         }
         stage('Build') {
