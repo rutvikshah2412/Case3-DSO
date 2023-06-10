@@ -54,7 +54,7 @@ pipeline {
         }
          stage('Trivy') {
             steps {
-               sh "trivy image rutvikshah2412/case3:${BUILD_NUMBER}"
+               sh "trivy image rutvikshah2412/case3-dso:${BUILD_NUMBER}"
             }
          }
     }
