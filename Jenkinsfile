@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/rutvikshah2412/Case2-DSO.git'
+                git branch: 'main', url: 'https://github.com/rutvikshah2412/Case3-DSO.git'
             }
         }
         stage('Compile') {
